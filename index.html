@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>Мессенджер</title>
+		<script src="base.js"></script>
+	</head>
+	<body>
+		<buttom id="open_messenger">Нажми</buttom>
+	</body>
+	<script>
+		const openMessengerEl = document.querySelector('#open_messenger');
+		let isLoadingMessengerApp = false;
+		openMessengerEl.addEventListener('click', () => {
+			const messengerAppEl = document.querySelector('.messenger_app');
+			if (messengerAppEl) {
+				messengerAppEl.classList.toggle('hidden');
+			} else {
+				if (isLoadingMessengerApp) return;
+				isLoadingMessengerApp = true;
+				import('./messenger-app.js').then(() => {
+					const messengerAppEl = document.createElement('messenger-app');
+					messengerAppEl.classList.add('messenger_app');
+					document.body.append(messengerAppEl);
+					isLoadingMessengerApp = false;
+				});
+			}
+		});
+	</script>
+</html>
