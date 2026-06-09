@@ -3,10 +3,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Мессенджер</title>
+		<link rel="stylesheet" href="style.css">
 		<script src="base.js"></script>
 	</head>
 	<body>
-		<buttom id="open_messenger">Нажми</buttom>
+		<button id="open_messenger">Открыть чат</button>
 	</body>
 	<script>
 		const openMessengerEl = document.querySelector('#open_messenger');
@@ -14,7 +15,8 @@
 		openMessengerEl.addEventListener('click', () => {
 			const messengerAppEl = document.querySelector('.messenger_app');
 			if (messengerAppEl) {
-				messengerAppEl.classList.toggle('hidden');
+				const chatIsHidden = messengerAppEl.classList.toggle('hidden');
+				openMessengerEl.innerText = chatIsHidden ? 'Открыть чат' : 'Закрыть чат';
 			} else {
 				if (isLoadingMessengerApp) return;
 				isLoadingMessengerApp = true;
@@ -22,6 +24,7 @@
 					const messengerAppEl = document.createElement('messenger-app');
 					messengerAppEl.classList.add('messenger_app');
 					document.body.append(messengerAppEl);
+					openMessengerEl.innerText = 'Закрыть чат';
 					isLoadingMessengerApp = false;
 				});
 			}
