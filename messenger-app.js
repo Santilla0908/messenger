@@ -4,11 +4,15 @@ customElements.define('messenger-msgs', MessengerMsgs);
 import MessengerChats from './messenger-chats.js';
 customElements.define('messenger-chats', MessengerChats);
 
+import MessengerCreateChatModal from './messenger-create-chat-modal.js';
+customElements.define('messenger-create-chat-modal', MessengerCreateChatModal);
+
 class MessengerApp extends Base {
 	get css() {
 		return `
 			<style>
-				.layout {
+				.messenger_container {
+					position: relative;
 					display: grid;
 					grid-template-columns: 320px 1fr;
     				height: 100vh;
@@ -26,15 +30,28 @@ class MessengerApp extends Base {
 	
 	get html() {
 		return `
-			<div class="layout">
+			<div class="messenger_container">
 				<messenger-chats></messenger-chats>
 				<messenger-msgs></messenger-msgs>
+				<messenger-create-chat-modal></messenger-create-chat-modal>
 			</div>
 		`;
 	}
 	
 	constructor() {
 		super();
+		
+		this.modalEl = this.shadowRoot.querySelector('messenger-create-chat-modal');
+		
+		this.chats = [];
+	}
+	openModal() {
+		this.modalEl.open();
+	}
+	createChat(name) {
+		this.chats.push({ name });
+		console.log(this.chats);
+		console.log('создаем чат:', name);
 	}
 }
 
