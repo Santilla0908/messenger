@@ -39,6 +39,9 @@ export default class MessengerCreateChatModal extends Base {
 				.chat_name:focus {
 					outline: none;
 				}
+				.chat_name.error::placeholder {
+					color: red;
+				}
 				.buttons {
 					display: flex;
 					justify-content: flex-end;
@@ -61,7 +64,7 @@ export default class MessengerCreateChatModal extends Base {
 		return `
 			<div class="modal">
 				<div class="title">Создание чата</div>
-				<input class="chat_name" type="text" placeholder="Введите название чата">
+				<input class="chat_name" type="text" placeholder="Название чата">
 				<div class="buttons">
 					<button class="cancel">Отмена</button>
 					<button class="ok">ОК</button>
@@ -76,24 +79,67 @@ export default class MessengerCreateChatModal extends Base {
 		this.inputEl = this.shadowRoot.querySelector('.chat_name');
 		this.cancelEl = this.shadowRoot.querySelector('.cancel');
 		this.okEl = this.shadowRoot.querySelector('.ok');
+		this.defaultPlaceholder = 'Название чата';
 		
 		this.cancelEl.addEventListener('click', () => {
 			this.close();
 		});
 		
+		document.addEventListener('keydown', e => {
+			if (e.key === 'Escape' && this.classList.contains('open')) {
+			this.close();
+			}
+		});
+		
 		this.okEl.addEventListener('click', () => {
 			const chatName = this.inputEl.value.trim();
-			if (!chatName) return;
+			if (!chatName) {
+				this.showError('Введите название чата');
+				return;
+			}
 			const app = this.getRootNode().host;
-			app.createChat(chatName);
+			const result = app.createChat(chatName);
+			if (!result) {
+				this.showError('Чат уже существует');
+				return;
+			}
+			this.close();
 		});
+		
+		this.inputEl.addEventListener('input', () => {
+			this.inputEl.classList.remove('error');
+			this.inputEl.placeholder = this.defaultPlaceholder;
+		})
+		
+		this.inputEl.addEventListener('keydown', e => {
+			if (e.key === 'Enter') {
+				this.okEl.click();
+			}
+		});
+	}
+	
+	reset() {
+		this.inputEl.value = '';
+		this.inputEl.classList.remove('error');
+		this.inputEl.placeholder = this.defaultPlaceholder;
+	}
+	
+	showError(message) {
+		this.inputEl.classList.add('error');
+		this.inputEl.value = '';
+		this.inputEl.placeholder = message;
 	}
 	
 	open() {
 		this.classList.add('open');
+		this.reset();
+		requestAnimationFrame(() => {
+			this.inputEl.focus();
+		});
 	}
 	
 	close() {
 		this.classList.remove('open');
+		this.reset();
 	}
 }

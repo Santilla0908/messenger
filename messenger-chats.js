@@ -67,6 +67,16 @@ export default class MessengerChats extends Base {
 				input:focus {
 					outline: none;
 				}
+				.chat_name {
+					display: flex;
+					padding: 0 10px;
+					height: 50px;
+					align-items: center;
+					transition: background 0.15s linear;
+				}
+				.chat_name:hover {
+					background: #282A2E;
+				}
 			</style>
 		`;
 	}
@@ -91,6 +101,7 @@ export default class MessengerChats extends Base {
 		
 		this.burgerEl = this.shadowRoot.querySelector('.button_burger');
 		this.menuEl = this.shadowRoot.querySelector('.chats_menu');
+		this.chatListEl = this.shadowRoot.querySelector('.chat_list');
 		
 		this.burgerEl.addEventListener('click', () => {
 			this.menuEl.open();
@@ -101,6 +112,16 @@ export default class MessengerChats extends Base {
 			if (!path.includes(this.menuEl) && !path.includes(this.burgerEl)) {
 				this.menuEl.close();
 			}
+		});
+	}
+	
+	renderChats(chats) {
+		this.chatListEl.innerHTML = '';
+		chats.forEach(chat => {
+			const div = document.createElement('div');
+			div.classList.add('chat_name');
+			div.innerText = chat.name;
+			this.chatListEl.append(div);
 		});
 	}
 }

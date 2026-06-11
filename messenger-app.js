@@ -41,6 +41,7 @@ class MessengerApp extends Base {
 	constructor() {
 		super();
 		
+		this.chatsEl = this.shadowRoot.querySelector('messenger-chats');
 		this.modalEl = this.shadowRoot.querySelector('messenger-create-chat-modal');
 		
 		this.chats = [];
@@ -49,9 +50,13 @@ class MessengerApp extends Base {
 		this.modalEl.open();
 	}
 	createChat(name) {
+		const isExist = this.chats.some(chat => {
+			return chat.name === name;
+		});
+		if (isExist) return false;
 		this.chats.push({ name });
-		console.log(this.chats);
-		console.log('создаем чат:', name);
+		this.chatsEl.renderChats(this.chats);
+		return true;
 	}
 }
 
