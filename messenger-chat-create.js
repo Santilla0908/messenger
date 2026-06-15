@@ -1,4 +1,4 @@
-export default class MessengerCreateChatModal extends Base {
+export default class MessengerChatCreate extends Base {
 	get css() {
 		return `
 			<style>

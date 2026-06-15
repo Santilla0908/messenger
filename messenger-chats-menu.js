@@ -2,7 +2,7 @@ export default class MessengerChatsMenu extends Base {
 	get css() {
 		return `
 			<style>
-				.menu {
+				:host {
 					display: flex;
 					justify-content: flex-start;
 					position: absolute;
@@ -12,13 +12,13 @@ export default class MessengerChatsMenu extends Base {
 					height: 100%;
 					z-index: 100;
 					background: #282A2E;
-					opacity: 0;
-					pointer-events: none;
-					transition: opacity 0.3s ease;
-				}
-				.menu.open {
 					opacity: 1;
 					pointer-events: auto;
+					transition: opacity 0.3s ease;
+				}
+				:host(.menu_hidden) {
+					opacity: 0;
+					pointer-events: none;
             	}
 				.create_chat {
 					display: flex;
@@ -36,26 +36,27 @@ export default class MessengerChatsMenu extends Base {
 	
 	get html() {
 		return `
-			<div class="menu">
-				<div class="create_chat">Создать чат</div>
-			</div>
+			<div class="create_chat">Создать чат</div>
 		`;
 	}
 	constructor() {
 		super();
-		this.menuEl = this.shadowRoot.querySelector('.menu');
+		this.classList.add('menu_hidden');
 		this.createChatEl = this.shadowRoot.querySelector('.create_chat');
 		this.createChatEl.addEventListener('click', () => {
 			this.close();
-			const chatsComponent = this.getRootNode().host;
-			const appComponent = chatsComponent.getRootNode().host;
-			appComponent.openModal();
+			this.dispatchEvent(
+				new CustomEvent('create-chat', {
+					bubbles: true,
+					composed: true
+				})
+			);
 		});
 	}
 	open() {
-		this.menuEl.classList.add('open');
+		this.classList.remove('menu_hidden');
 	}
 	close() {
-		this.menuEl.classList.remove('open');
+		this.classList.add('menu_hidden');
 	}
 }

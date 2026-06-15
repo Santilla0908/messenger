@@ -1,28 +1,24 @@
-import MessengerMsgs from './messenger-msgs.js';
-customElements.define('messenger-msgs', MessengerMsgs);
+import MessengerChat from "./messenger-chat.js";
+customElements.define('messenger-chat', MessengerChat);
 
 import MessengerChats from './messenger-chats.js';
 customElements.define('messenger-chats', MessengerChats);
 
-import MessengerCreateChatModal from './messenger-create-chat-modal.js';
-customElements.define('messenger-create-chat-modal', MessengerCreateChatModal);
+import MessengerChatCreate from "./messenger-chat-create.js";
+customElements.define('messenger-chat-create', MessengerChatCreate);
 
 class MessengerApp extends Base {
 	get css() {
 		return `
 			<style>
-				.messenger_container {
+				:host {
 					position: relative;
 					display: grid;
 					grid-template-columns: 320px 1fr;
-    				height: 100vh;
+    				height: 700px;
     				border: 1px solid #202225;
     				width: 650px;
     				color: #E8E6E1;
-				}
-				.messenger-msgs {
-					display: grid;
-					grid-template-rows: auto 1fr auto;
 				}
 			</style>
 		`;
@@ -30,11 +26,9 @@ class MessengerApp extends Base {
 	
 	get html() {
 		return `
-			<div class="messenger_container">
-				<messenger-chats></messenger-chats>
-				<messenger-msgs></messenger-msgs>
-				<messenger-create-chat-modal></messenger-create-chat-modal>
-			</div>
+			<messenger-chats></messenger-chats>
+			<messenger-chat></messenger-chat>
+			<messenger-chat-create></messenger-chat-create>
 		`;
 	}
 	
@@ -42,9 +36,14 @@ class MessengerApp extends Base {
 		super();
 		
 		this.chatsEl = this.shadowRoot.querySelector('messenger-chats');
-		this.modalEl = this.shadowRoot.querySelector('messenger-create-chat-modal');
+		this.modalEl = this.shadowRoot.querySelector('messenger-chat-create');
 		
-		this.chats = [];
+		this.chats = JSON.parse(localStorage.getItem('chats')) || [];
+		this.chatsEl.renderChats(this.chats);
+		
+		this.addEventListener('create-chat', () => {
+			this.openModal();
+		});
 	}
 	openModal() {
 		this.modalEl.open();
@@ -55,6 +54,7 @@ class MessengerApp extends Base {
 		});
 		if (isExist) return false;
 		this.chats.push({ name });
+		localStorage.setItem('chats', JSON.stringify(this.chats));
 		this.chatsEl.renderChats(this.chats);
 		return true;
 	}
