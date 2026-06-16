@@ -4,15 +4,13 @@ customElements.define('messenger-chat', MessengerChat);
 import MessengerChats from './messenger-chats.js';
 customElements.define('messenger-chats', MessengerChats);
 
-import MessengerChatCreate from "./messenger-chat-create.js";
-customElements.define('messenger-chat-create', MessengerChatCreate);
-
 class MessengerApp extends Base {
 	get css() {
 		return `
 			<style>
 				:host {
 					position: relative;
+					overflow: hidden;
 					display: grid;
 					grid-template-columns: 320px 1fr;
     				height: 700px;
@@ -28,7 +26,6 @@ class MessengerApp extends Base {
 		return `
 			<messenger-chats></messenger-chats>
 			<messenger-chat></messenger-chat>
-			<messenger-chat-create></messenger-chat-create>
 		`;
 	}
 	
@@ -36,22 +33,40 @@ class MessengerApp extends Base {
 		super();
 		
 		this.chatsEl = this.shadowRoot.querySelector('messenger-chats');
-		this.modalEl = this.shadowRoot.querySelector('messenger-chat-create');
+		this.modalEl = null;
 		
 		this.chats = JSON.parse(localStorage.getItem('chats')) || [];
 		this.chatsEl.renderChats(this.chats);
 		
 		this.addEventListener('create-chat', () => {
-			this.openModal();
+			if (this.modalEl) {
+				this.modalEl.open();
+				return;
+			}
+			import('./messenger-chat-create.js').then(() => {
+				this.modalEl = document.createElement('messenger-chat-create');
+				this.shadowRoot.append(this.modalEl);
+				this.modalEl.open();
+			});
+		});
+		
+		this.addEventListener('chat-create-confirm', e => {
+			const name = e.detail.name;
+			const result = this.createChat(name);
+			if (result) {
+				this.modalEl.close();
+			} else {
+				this.modalEl.dispatchEvent(new CustomEvent('chat-create-error', {
+					bubbles: true,
+					composed: true,
+					detail: { message: 'Чат уже существует' }
+				}));
+			}
 		});
 	}
-	openModal() {
-		this.modalEl.open();
-	}
+	
 	createChat(name) {
-		const isExist = this.chats.some(chat => {
-			return chat.name === name;
-		});
+		const isExist = this.chats.some(chat => chat.name === name);
 		if (isExist) return false;
 		this.chats.push({ name });
 		localStorage.setItem('chats', JSON.stringify(this.chats));

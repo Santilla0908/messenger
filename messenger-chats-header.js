@@ -76,11 +76,11 @@ export default class MessengerChatsHeader extends Base {
 	get html() {
 		return `
 			<div class="button_burger">
-					<span class="burger_inner_top"></span>
-					<span class="burger_inner"></span>
-					<span class="burger_inner_bottom"></span>
-				</div>
-				<input class="search" type="text" placeholder="Поиск">
+				<span class="burger_inner_top"></span>
+				<span class="burger_inner"></span>
+				<span class="burger_inner_bottom"></span>
+			</div>
+			<input class="search" type="text" placeholder="Поиск">
 		`;
 	}
 	constructor() {
@@ -88,7 +88,6 @@ export default class MessengerChatsHeader extends Base {
 		this.burgerEl = this.shadowRoot.querySelector('.button_burger');
 		
 		this.burgerEl.addEventListener('click', () => {
-			console.log('burger click');
 			this.dispatchEvent(
 				new CustomEvent('burger-click', {
 					bubbles: true,

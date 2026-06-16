@@ -1,25 +1,24 @@
-export default class MessengerChatsMenu extends Base {
+class MessengerChatsMenu extends Base {
 	get css() {
 		return `
 			<style>
-				:host {
-					display: flex;
-					justify-content: flex-start;
+				:host{
 					position: absolute;
-					left: 0;
-					top: 0;
-					width: 50%;
-					height: 100%;
-					z-index: 100;
-					background: #282A2E;
-					opacity: 1;
-					pointer-events: auto;
-					transition: opacity 0.3s ease;
+                    left: 0;
+                    top: 0;
+                    inset: 0;
+                    width: 50%;
+                    height: 100%;
+                    z-index: 100;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 0.2s ease;
+                    background: #282A2E;
 				}
-				:host(.menu_hidden) {
-					opacity: 0;
-					pointer-events: none;
-            	}
+				:host(.opened) {
+					opacity: 1;
+                    pointer-events: auto;
+				}
 				.create_chat {
 					display: flex;
 					flex-direction: column;
@@ -41,7 +40,6 @@ export default class MessengerChatsMenu extends Base {
 	}
 	constructor() {
 		super();
-		this.classList.add('menu_hidden');
 		this.createChatEl = this.shadowRoot.querySelector('.create_chat');
 		this.createChatEl.addEventListener('click', () => {
 			this.close();
@@ -54,9 +52,11 @@ export default class MessengerChatsMenu extends Base {
 		});
 	}
 	open() {
-		this.classList.remove('menu_hidden');
+		this.classList.add('opened');
 	}
 	close() {
-		this.classList.add('menu_hidden');
+		this.classList.remove('opened');
 	}
 }
+
+customElements.define('messenger-chats-menu', MessengerChatsMenu);

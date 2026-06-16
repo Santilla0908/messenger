@@ -1,4 +1,4 @@
-export default class MessengerChatCreate extends Base {
+class MessengerChatCreate extends Base {
 	get css() {
 		return `
 			<style>
@@ -97,13 +97,11 @@ export default class MessengerChatCreate extends Base {
 				this.showError('Введите название чата');
 				return;
 			}
-			const app = this.getRootNode().host;
-			const result = app.createChat(chatName);
-			if (!result) {
-				this.showError('Чат уже существует');
-				return;
-			}
-			this.close();
+			this.dispatchEvent(new CustomEvent('chat-create-confirm', {
+				bubbles: true,
+				composed: true,
+				detail : { name: chatName }
+			}));
 		});
 		
 		this.inputEl.addEventListener('input', () => {
@@ -115,6 +113,10 @@ export default class MessengerChatCreate extends Base {
 			if (e.key === 'Enter') {
 				this.okEl.click();
 			}
+		});
+		
+		this.addEventListener('chat-create-error', e => {
+			this.showError(e.detail.message);
 		});
 	}
 	
@@ -143,3 +145,5 @@ export default class MessengerChatCreate extends Base {
 		this.reset();
 	}
 }
+
+customElements.define('messenger-chat-create', MessengerChatCreate);
