@@ -1,11 +1,13 @@
-export default class MessengerChatsBody extends Base {
+export default class MessengerChatsItems extends Base {
 	get css() {
 		return `
 			<style>
 				:host {
 					height: 100%;
 				}
-				
+				:host(.disabled) {
+					pointer-events: none;
+				}
 			</style>
 		`;
 	}

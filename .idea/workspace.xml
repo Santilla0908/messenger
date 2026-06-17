@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1bcea62d-3f1e-4dfb-980a-61e520432d4d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messenger-app.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messenger-chat-create.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-chat-create.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messenger-chats-body.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-chats-body.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messenger-chats-header.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-chats-header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-chats-body.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/messenger-chats-menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-chats-menu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/messenger-chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-chats.js" afterDir="false" />
     </list>

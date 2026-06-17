@@ -4,8 +4,6 @@ class MessengerChatsMenu extends Base {
 			<style>
 				:host{
 					position: absolute;
-                    left: 0;
-                    top: 0;
                     inset: 0;
                     width: 50%;
                     height: 100%;
@@ -43,12 +41,10 @@ class MessengerChatsMenu extends Base {
 		this.createChatEl = this.shadowRoot.querySelector('.create_chat');
 		this.createChatEl.addEventListener('click', () => {
 			this.close();
-			this.dispatchEvent(
-				new CustomEvent('create-chat', {
+			this.dispatchEvent(new CustomEvent('create-chat', {
 					bubbles: true,
 					composed: true
-				})
-			);
+				}));
 		});
 	}
 	open() {

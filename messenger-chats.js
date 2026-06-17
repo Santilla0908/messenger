@@ -1,5 +1,5 @@
-import MessengerChatsBody from "./messenger-chats-body.js";
-customElements.define('messenger-chats-body', MessengerChatsBody);
+import MessengerChatsItems from "./messenger-chats-items.js";
+customElements.define('messenger-chats-items', MessengerChatsItems);
 
 import MessengerChatsHeader from "./messenger-chats-header.js";
 customElements.define('messenger-chats-header', MessengerChatsHeader);
@@ -21,14 +21,14 @@ export default class MessengerChats extends Base {
 	get html() {
 		return `
 			<messenger-chats-header></messenger-chats-header>
-			<messenger-chats-body></messenger-chats-body>
+			<messenger-chats-items></messenger-chats-items>
 		`;
 	}
 	
 	constructor() {
 		super();
 		this.menuEl = null;
-		this.chatItemEls = this.shadowRoot.querySelector('messenger-chats-body');
+		this.chatsItemEls = this.shadowRoot.querySelector('messenger-chats-items');
 		this.headerEl = this.shadowRoot.querySelector('messenger-chats-header');
 		this.burgerEl = this.headerEl.shadowRoot.querySelector('.button_burger');
 		
@@ -38,14 +38,17 @@ export default class MessengerChats extends Base {
 					this.menuEl = document.createElement('messenger-chats-menu');
 					this.shadowRoot.append(this.menuEl);
 					this.menuEl.open();
+					this.chatItemEls.classList.add('disabled');
 				});
 				return;
 			}
 			
 			if (this.menuEl.classList.contains('opened')) {
 				this.menuEl.close();
+				this.chatsItemEls.classList.remove('disabled');
 			} else {
 				this.menuEl.open();
+				this.chatsItemEls.classList.add('disabled');
 			}
 		});
 		
@@ -53,13 +56,14 @@ export default class MessengerChats extends Base {
 			const path = e.composedPath();
 			if (!path.includes(this.menuEl) && !path.includes(this.headerEl)) {
 				this.menuEl.close();
+				this.chatsItemEls.classList.remove('disabled');
 			}
 		});
 	}
 	
 	renderChats(chats) {
 		import('./messenger-chats-item.js').then(() => {
-			this.chatItemEls.renderChats(chats);
+			this.chatsItemEls.renderChats(chats);
 		});
 	}
 }
