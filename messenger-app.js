@@ -34,6 +34,7 @@ class MessengerApp extends Base {
 		
 		this.chatsEl = this.shadowRoot.querySelector('messenger-chats');
 		this.modalEl = null;
+		this.isLoadingModal = false;
 		
 		this.chats = JSON.parse(localStorage.getItem('chats')) || [];
 		this.chatsEl.renderChats(this.chats);
@@ -43,10 +44,13 @@ class MessengerApp extends Base {
 				this.modalEl.open();
 				return;
 			}
+			if (this.isLoadingModal) return;
+			this.isLoadingModal = true;
 			import('./messenger-chat-create.js').then(() => {
 				this.modalEl = document.createElement('messenger-chat-create');
 				this.shadowRoot.append(this.modalEl);
 				this.modalEl.open();
+				this.isLoadingModal = false;
 			});
 		});
 		

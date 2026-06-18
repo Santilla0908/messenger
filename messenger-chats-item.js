@@ -19,12 +19,17 @@ class MessengerChatsItem extends Base {
 	
 	get html() {
 		return `
-		
+			<p class="chat_name"></p>
 		`;
 	}
 	
 	constructor() {
 		super();
+	}
+	
+	set name(value) {
+		const p = this.shadowRoot.querySelector('.chat_name');
+		if (p) p.innerText = value;
 	}
 }
 

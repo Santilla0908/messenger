@@ -1,4 +1,4 @@
-export default class MessengerChatInput extends Base {
+export default class MessengerChatComposer extends Base {
 	get css() {
 		return `
 			<style>

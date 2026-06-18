@@ -38,7 +38,7 @@ export default class MessengerChats extends Base {
 					this.menuEl = document.createElement('messenger-chats-menu');
 					this.shadowRoot.append(this.menuEl);
 					this.menuEl.open();
-					this.chatItemEls.classList.add('disabled');
+					this.chatsItemEls.classList.add('disabled');
 				});
 				return;
 			}
@@ -52,13 +52,19 @@ export default class MessengerChats extends Base {
 			}
 		});
 		
-		document.addEventListener('click', e => {
+		this.onDocumentClick = e => {
 			const path = e.composedPath();
 			if (!path.includes(this.menuEl) && !path.includes(this.headerEl)) {
 				this.menuEl.close();
 				this.chatsItemEls.classList.remove('disabled');
 			}
-		});
+		}
+		
+		document.addEventListener('click', this.onDocumentClick);
+	}
+	
+	disconnectedCallback() {
+		document.removeEventListener('click', this.onDocumentClick);
 	}
 	
 	renderChats(chats) {

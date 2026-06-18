@@ -23,13 +23,10 @@ export default class MessengerChatsItems extends Base {
 	}
 	
 	renderChats(chats) {
-		this.innerHTML = '';
+		this.shadowRoot.innerHTML = '';
 		chats.forEach(chat => {
 			const item = document.createElement('messenger-chats-item');
-			const chatName = document.createElement('p');
-			chatName.classList.add('chat_name');
-			chatName.innerText = chat.name;
-			item.shadowRoot.append(chatName);
+			item.name = chat.name;
 			this.shadowRoot.append(item);
 		});
 	}

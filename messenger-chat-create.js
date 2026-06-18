@@ -3,15 +3,15 @@ class MessengerChatCreate extends Base {
 		return `
 			<style>
 				:host {
-					position: absolute;
-					inset: 0;
-					display: none;
-					background: rgba(0,0,0,.5);
-				}
-				:host(.open) {
 					display: flex;
 					justify-content: center;
 					align-items: center;
+					position: absolute;
+					inset: 0;
+					background: rgba(0,0,0,.5);
+				}
+				:host(.hidden) {
+					display: none;
 				}
 				.modal {
 					display: flex;
@@ -86,7 +86,7 @@ class MessengerChatCreate extends Base {
 		});
 		
 		document.addEventListener('keydown', e => {
-			if (e.key === 'Escape' && this.classList.contains('open')) {
+			if (e.key === 'Escape' && this.classList.contains('hidden')) {
 			this.close();
 			}
 		});
@@ -133,7 +133,7 @@ class MessengerChatCreate extends Base {
 	}
 	
 	open() {
-		this.classList.add('open');
+		this.classList.remove('hidden');
 		this.reset();
 		requestAnimationFrame(() => {
 			this.inputEl.focus();
@@ -141,7 +141,7 @@ class MessengerChatCreate extends Base {
 	}
 	
 	close() {
-		this.classList.remove('open');
+		this.classList.add('hidden');
 		this.reset();
 	}
 }
