@@ -25,21 +25,21 @@ class MessengerChatCreate extends Base {
 					border-radius: 8px;
 					padding: 10px;
 				}
-				.title {
+				.header {
 					font-size: 18px;
 					font-weight: bold;
 				}
-				.chat_name {
+				.input {
 					height: 36px;
 					padding: 0 10px;
 					background: #313438;
 					border: 1px solid #202225;
 					color: #E8E6E1;
 				}
-				.chat_name:focus {
+				.input:focus {
 					outline: none;
 				}
-				.chat_name.error::placeholder {
+				.input.error::placeholder {
 					color: red;
 				}
 				.buttons {
@@ -63,8 +63,8 @@ class MessengerChatCreate extends Base {
 	get html() {
 		return `
 			<div class="modal">
-				<div class="title">Создание чата</div>
-				<input class="chat_name" type="text" placeholder="Название чата">
+				<div class="header">Создание чата</div>
+				<input class="input title" type="text" placeholder="Название чата">
 				<div class="buttons">
 					<button class="cancel">Отмена</button>
 					<button class="ok">ОК</button>
@@ -76,7 +76,7 @@ class MessengerChatCreate extends Base {
 	constructor() {
 		super();
 		
-		this.inputEl = this.shadowRoot.querySelector('.chat_name');
+		this.titleEl = this.shadowRoot.querySelector('.title');
 		this.cancelEl = this.shadowRoot.querySelector('.cancel');
 		this.okEl = this.shadowRoot.querySelector('.ok');
 		this.defaultPlaceholder = 'Название чата';
@@ -92,24 +92,23 @@ class MessengerChatCreate extends Base {
 		});
 		
 		this.okEl.addEventListener('click', () => {
-			const chatName = this.inputEl.value.trim();
-			if (!chatName) {
+			const title = this.titleEl.value.trim();
+			if (!title) {
 				this.showError('Введите название чата');
 				return;
 			}
-			this.dispatchEvent(new CustomEvent('chat-create-confirm', {
-				bubbles: true,
-				composed: true,
-				detail : { name: chatName }
-			}));
+			const chat = {
+				title
+			};
+			this.emit('chat-create-confirm', { chat });
 		});
 		
-		this.inputEl.addEventListener('input', () => {
-			this.inputEl.classList.remove('error');
-			this.inputEl.placeholder = this.defaultPlaceholder;
+		this.titleEl.addEventListener('input', () => {
+			this.titleEl.classList.remove('error');
+			this.titleEl.placeholder = this.defaultPlaceholder;
 		})
 		
-		this.inputEl.addEventListener('keydown', e => {
+		this.titleEl.addEventListener('keydown', e => {
 			if (e.key === 'Enter') {
 				this.okEl.click();
 			}
@@ -121,22 +120,22 @@ class MessengerChatCreate extends Base {
 	}
 	
 	reset() {
-		this.inputEl.value = '';
-		this.inputEl.classList.remove('error');
-		this.inputEl.placeholder = this.defaultPlaceholder;
+		this.titleEl.value = '';
+		this.titleEl.classList.remove('error');
+		this.titleEl.placeholder = this.defaultPlaceholder;
 	}
 	
 	showError(message) {
-		this.inputEl.classList.add('error');
-		this.inputEl.value = '';
-		this.inputEl.placeholder = message;
+		this.titleEl.classList.add('error');
+		this.titleEl.value = '';
+		this.titleEl.placeholder = message;
 	}
 	
 	open() {
 		this.classList.remove('hidden');
 		this.reset();
 		requestAnimationFrame(() => {
-			this.inputEl.focus();
+			this.titleEl.focus();
 		});
 	}
 	

@@ -5,14 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1bcea62d-3f1e-4dfb-980a-61e520432d4d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/chat/messenger-chat-inputs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/base.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/messenger-app.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messenger-chat-create.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-chat-create.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messenger-chat-input.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/messenger-chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-chat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messenger-chats-item.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-chats-item.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messenger-chats-items.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-chats-items.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/messenger-chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/messenger-chats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-chat-composer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-chat-create.js" beforeDir="false" afterPath="$PROJECT_DIR$/chat/messenger-chat-create.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-chat-header.js" beforeDir="false" afterPath="$PROJECT_DIR$/chat/messenger-chat-header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/chat/messenger-chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-chats-header.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-chats-item.js" beforeDir="false" afterPath="$PROJECT_DIR$/chats/messenger-chats-item.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-chats-items.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-chats-menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/chats/messenger-chats-menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-chats.js" beforeDir="false" afterPath="$PROJECT_DIR$/chats/messenger-chats.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/messenger-msgs.js" beforeDir="false" afterPath="$PROJECT_DIR$/msgs/messenger-msgs.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +64,13 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\messenger\chats" />
+      <recent name="C:\dev\messenger\chat" />
+      <recent name="C:\dev\messenger\msgs" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

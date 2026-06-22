@@ -1,11 +1,11 @@
 import MessengerChatHeader from "./messenger-chat-header.js";
 customElements.define('messenger-chat-header', MessengerChatHeader);
 
-import MessengerMsgs from './messenger-msgs.js';
+import MessengerMsgs from '../msgs/messenger-msgs.js';
 customElements.define('messenger-msgs', MessengerMsgs);
 
-import MessengerChatComposer from "./messenger-chat-composer.js";
-customElements.define('messenger-chat-composer', MessengerChatComposer);
+import MessengerChatInputs from "./messenger-chat-inputs.js";
+customElements.define('messenger-chat-inputs', MessengerChatInputs);
 
 export default class MessengerChat extends Base {
 	get css() {
@@ -27,7 +27,7 @@ export default class MessengerChat extends Base {
 		return `
 			<messenger-chat-header></messenger-chat-header>
 			<messenger-msgs></messenger-msgs>
-			<messenger-chat-composer></messenger-chat-composer>
+			<messenger-chat-inputs></messenger-chat-inputs>
 		`;
 	}
 	

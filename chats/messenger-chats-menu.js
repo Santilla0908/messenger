@@ -41,10 +41,7 @@ class MessengerChatsMenu extends Base {
 		this.createChatEl = this.shadowRoot.querySelector('.create_chat');
 		this.createChatEl.addEventListener('click', () => {
 			this.close();
-			this.dispatchEvent(new CustomEvent('create-chat', {
-					bubbles: true,
-					composed: true
-				}));
+			this.emit('create-chat');
 		});
 	}
 	open() {

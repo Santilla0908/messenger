@@ -28,4 +28,12 @@ class Base extends HTMLElement {
 		
 		this.shadowRoot.innerHTML += this.css + this.html;
 	}
+	
+	emit(eventTitle, data = {}) {
+		this.dispatchEvent(new CustomEvent(eventTitle, {
+			bubbles: true,
+			composed: true,
+			detail: data
+		}));
+	}
 }

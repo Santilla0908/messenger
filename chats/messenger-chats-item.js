@@ -1,4 +1,4 @@
-class MessengerChatsItem extends Base {
+export default class MessengerChatsItem extends Base {
 	get css() {
 		return `
 			<style>
@@ -19,7 +19,7 @@ class MessengerChatsItem extends Base {
 	
 	get html() {
 		return `
-			<p class="chat_name"></p>
+			<div class="title"></div>
 		`;
 	}
 	
@@ -27,10 +27,17 @@ class MessengerChatsItem extends Base {
 		super();
 	}
 	
-	set name(value) {
-		const p = this.shadowRoot.querySelector('.chat_name');
-		if (p) p.innerText = value;
+	set value(value) {
+		const {
+			title
+		} = value;
+		const titleEl = this.shadowRoot.querySelector('.title');
+		titleEl.innerText = title;
+		this._value = value;
+		console.log(`this.value`, this.value);
+	}
+	
+	get value() {
+		return this._value;
 	}
 }
-
-customElements.define('messenger-chats-item', MessengerChatsItem);
