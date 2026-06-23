@@ -98,7 +98,9 @@ class MessengerChatCreate extends Base {
 				return;
 			}
 			const chat = {
-				title
+				id: crypto.randomUUID(),
+				title,
+				messages: []
 			};
 			this.emit('chat-create-confirm', { chat });
 		});

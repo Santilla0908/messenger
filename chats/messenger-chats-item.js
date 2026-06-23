@@ -1,3 +1,5 @@
+const valueSymbol = Symbol('value');
+
 export default class MessengerChatsItem extends Base {
 	get css() {
 		return `
@@ -33,11 +35,11 @@ export default class MessengerChatsItem extends Base {
 		} = value;
 		const titleEl = this.shadowRoot.querySelector('.title');
 		titleEl.innerText = title;
-		this._value = value;
+		this[valueSymbol] = value;
 		console.log(`this.value`, this.value);
 	}
 	
 	get value() {
-		return this._value;
+		return this[valueSymbol];
 	}
 }
