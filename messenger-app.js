@@ -35,9 +35,30 @@ class MessengerApp extends Base {
 		this.chatsEl = this.shadowRoot.querySelector('messenger-chats');
 		this.modalEl = null;
 		this.isLoadingModal = false;
+		this.menuEl = null;
+		this.isLoadingMenu = false;
 		
 		this.chats = JSON.parse(localStorage.getItem('chats')) ?? [];
 		this.chatsEl.renderChats(this.chats);
+		
+		this.addEventListener('toggle-chats-menu', e => {
+			if (!this.menuEl) {
+				if (this.isLoadingMenu) return;
+				this.isLoadingMenu = true;
+				import('./chats/messenger-chats-menu.js').then(() => {
+					this.menuEl = document.createElement('messenger-chats-menu');
+					this.shadowRoot.append(this.menuEl);
+					this.menuEl.open();
+					this.isLoadingMenu = false;
+				});
+				return;
+			}
+			if (this.menuEl.classList.contains('opened')) {
+				this.menuEl.close();
+			} else {
+				this.menuEl.open();
+			}
+		});
 		
 		this.addEventListener('create-chat', () => {
 			if (this.modalEl) {

@@ -80,9 +80,6 @@ export default class MessengerChats extends Base {
 				.chat_name:hover {
 					background: #282A2E;
 				}
-				.chats.disabled {
-					pointer-events: none;
-				}
 			</style>
 		`;
 	}
@@ -103,44 +100,12 @@ export default class MessengerChats extends Base {
 	
 	constructor() {
 		super();
-		this.menuEl = null;
 		this.chatsEl = this.shadowRoot.querySelector('.chats');
-		this.headerEl = this.shadowRoot.querySelector('.header');
 		this.burgerEl = this.shadowRoot.querySelector('.burger');
 		
 		this.burgerEl.addEventListener('click', () => {
-			if (!this.menuEl) {
-				import('./messenger-chats-menu.js').then(() => {
-					this.menuEl = document.createElement('messenger-chats-menu');
-					this.shadowRoot.append(this.menuEl);
-					this.menuEl.open();
-					this.chatsEl.classList.add('disabled');
-				});
-				return;
-			}
-			
-			if (this.menuEl.classList.contains('opened')) {
-				this.menuEl.close();
-				this.chatsEl.classList.remove('disabled');
-			} else {
-				this.menuEl.open();
-				this.chatsEl.classList.add('disabled');
-			}
+			this.emit('toggle-chats-menu');
 		});
-		
-		this.onDocumentClick = e => {
-			const path = e.composedPath();
-			if (this.menuEl && !path.includes(this.menuEl) && !path.includes(this.headerEl)) {
-				this.menuEl.close();
-				this.chatsEl.classList.remove('disabled');
-			}
-		}
-		
-		document.addEventListener('click', this.onDocumentClick);
-	}
-	
-	disconnectedCallback() {
-		document.removeEventListener('click', this.onDocumentClick);
 	}
 	
 	renderChats(chats) {
