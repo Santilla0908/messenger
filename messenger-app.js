@@ -13,10 +13,31 @@ class MessengerApp extends Base {
 					overflow: hidden;
 					display: grid;
 					grid-template-columns: 320px 1fr;
-    				height: 90vh;
-    				border: 1px solid #202225;
-    				width: 700px;
-    				color: #E8E6E1;
+					grid-template-rows: 25px 1fr;
+					height: 90vh;
+					border: 1px solid #202225;
+					width: 700px;
+					color: #E8E6E1;
+				}
+				.header {
+					grid-column: 1 / -1;
+					display: flex;
+					justify-content: flex-end;
+					align-items: center;
+					background: #202225;
+					border-bottom: 1px solid #111;
+				}
+				.window_button {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 40px;
+					height: 25px;
+					cursor: pointer;
+					user-select: none;
+				}
+				.window_button:hover {
+					background: red;
 				}
 			</style>
 		`;
@@ -24,6 +45,9 @@ class MessengerApp extends Base {
 	
 	get html() {
 		return `
+			<div class="header">
+				<div class="window_button close">✕</div>
+			</div>
 			<messenger-chats></messenger-chats>
 			<messenger-chat></messenger-chat>
 		`;
@@ -33,6 +57,7 @@ class MessengerApp extends Base {
 		super();
 		
 		this.chatsEl = this.shadowRoot.querySelector('messenger-chats');
+		this.closeAppEl = this.shadowRoot.querySelector('.close');
 		this.modalEl = null;
 		this.isLoadingModal = false;
 		this.menuEl = null;
@@ -40,6 +65,10 @@ class MessengerApp extends Base {
 		
 		this.chats = JSON.parse(localStorage.getItem('chats')) ?? [];
 		this.chatsEl.renderChats(this.chats);
+		
+		this.closeAppEl.addEventListener('click', () => {
+			this.emit('close-messenger');
+		});
 		
 		this.addEventListener('toggle-chats-menu', e => {
 			if (!this.menuEl) {

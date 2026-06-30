@@ -15,8 +15,8 @@
 		openMessengerEl.addEventListener('click', () => {
 			const messengerAppEl = document.querySelector('.messenger_app');
 			if (messengerAppEl) {
-				const chatIsHidden = messengerAppEl.classList.toggle('hidden');
-				openMessengerEl.innerText = chatIsHidden ? 'Открыть чат' : 'Закрыть чат';
+				messengerAppEl.classList.remove('hidden');
+				openMessengerEl.classList.add('hidden');
 			} else {
 				if (isLoadingMessengerApp) return;
 				isLoadingMessengerApp = true;
@@ -24,10 +24,15 @@
 					const messengerAppEl = document.createElement('messenger-app');
 					messengerAppEl.classList.add('messenger_app');
 					document.body.append(messengerAppEl);
-					openMessengerEl.innerText = 'Закрыть чат';
+					openMessengerEl.classList.add('hidden');
 					isLoadingMessengerApp = false;
 				});
 			}
+		});
+		document.addEventListener('close-messenger', () => {
+			const messengerAppEl = document.querySelector('.messenger_app');
+			messengerAppEl.classList.add('hidden');
+			openMessengerEl.classList.remove('hidden');
 		});
 		openMessengerEl.click();
 	</script>
