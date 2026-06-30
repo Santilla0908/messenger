@@ -1,4 +1,4 @@
-const valueSymbol = Symbol('value');
+const chatSymbol = Symbol('value');
 
 export default class MessengerChatsItem extends Base {
 	get css() {
@@ -27,19 +27,30 @@ export default class MessengerChatsItem extends Base {
 	
 	constructor() {
 		super();
+		this.titleEl = this.shadowRoot.querySelector('.title');
+		
+		this.addEventListener('click', () => {
+			console.log('1. Клик по чату');
+			console.log('this.value:', this.value);
+			this.emit('chat-select', {
+				chat: this.value
+			});
+		});
+		
+		
 	}
 	
 	set value(value) {
 		const {
 			title
 		} = value;
-		const titleEl = this.shadowRoot.querySelector('.title');
-		titleEl.innerText = title;
-		this[valueSymbol] = value;
-		console.log(`this.value`, this.value);
+		this.titleEl.innerText = title;
+		this[chatSymbol] = value;
+		console.log('MessengerChatsItem -> set value');
+		console.log(this.value);
 	}
 	
 	get value() {
-		return this[valueSymbol];
+		return this[chatSymbol];
 	}
 }

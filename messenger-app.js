@@ -57,11 +57,13 @@ class MessengerApp extends Base {
 		super();
 		
 		this.chatsEl = this.shadowRoot.querySelector('messenger-chats');
+		this.chatEl = this.shadowRoot.querySelector('messenger-chat');
 		this.closeAppEl = this.shadowRoot.querySelector('.close');
 		this.modalEl = null;
 		this.isLoadingModal = false;
 		this.menuEl = null;
 		this.isLoadingMenu = false;
+		this.activeChat = null;
 		
 		this.chats = JSON.parse(localStorage.getItem('chats')) ?? [];
 		this.chatsEl.renderChats(this.chats);
@@ -108,6 +110,14 @@ class MessengerApp extends Base {
 			const chat = e.detail.chat;
 			this.createChat(chat);
 			this.modalEl.close();
+		});
+		
+		this.addEventListener('chat-select', e => {
+			console.log('2. MessengerApp поймал chat-select');
+			console.log('e.detail.chat:', e.detail.chat);
+			this.activeChat = e.detail.chat;
+			console.log('activeChat:', this.activeChat);
+			this.chatEl.activeChat = this.activeChat;
 		});
 	}
 	
