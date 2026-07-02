@@ -15,6 +15,9 @@ export default class MessengerChatsItem extends Base {
 				:host(:hover) {
                     background: #282A2E;
                 }
+                :host(.active) {
+					background: #3A3D42;
+				}
 			</style>
 		`;
 	}

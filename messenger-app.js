@@ -118,6 +118,7 @@ class MessengerApp extends Base {
 			this.activeChat = e.detail.chat;
 			console.log('activeChat:', this.activeChat);
 			this.chatEl.activeChat = this.activeChat;
+			this.chatsEl.setActiveChat(this.activeChat);
 		});
 	}
 	
