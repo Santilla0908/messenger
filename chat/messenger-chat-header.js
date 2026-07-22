@@ -4,6 +4,9 @@ export default class MessengerChatHeader extends Base {
 		return `
 			<style>
 				.title {
+				    display: flex;
+					justify-content: center;
+					align-items: center;
 					height: 50px;
 					border-bottom: 1px solid #202225;
 				}
@@ -22,8 +25,6 @@ export default class MessengerChatHeader extends Base {
 	}
 	
 	set activeChat(selectedChat) {
-		console.log('4. MessengerChatHeader -> set activeChat');
-		console.log(selectedChat);
 		this[activeChatSymbol] = selectedChat;
 		this.titleEl.innerText = selectedChat.title;
 	}

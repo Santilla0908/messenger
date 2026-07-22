@@ -45,7 +45,6 @@ export default class MessengerChat extends Base {
 	}
 	
 	showEmpty() {
-		console.log('MessengerChat -> showEmpty');
 		this.emptyEl.classList.remove('hidden');
 		this.headerEl.classList.add('hidden');
 		this.msgsEl.classList.add('hidden');
@@ -53,7 +52,6 @@ export default class MessengerChat extends Base {
 	}
 	
 	showChat() {
-		console.log('MessengerChat -> showChat');
 		this.emptyEl.classList.add('hidden');
 		this.headerEl.classList.remove('hidden');
 		this.msgsEl.classList.remove('hidden');
@@ -61,18 +59,14 @@ export default class MessengerChat extends Base {
 	}
 	
 	set activeChat(selectedChat) {
-		console.log('3. MessengerChat -> set activeChat');
-		console.log(selectedChat);
-		
 		this[activeChatSymbol] = selectedChat;
 		if (!selectedChat) {
-			console.log('Чат отсутствует');
 			this.showEmpty();
 			return;
 		}
-		console.log('Открываем чат:', selectedChat.title);
 		this.showChat();
 		this.headerEl.activeChat = selectedChat;
+		this.msgsEl.activeChat = selectedChat;
 	}
 	
 	get value() {

@@ -33,8 +33,6 @@ export default class MessengerChatsItem extends Base {
 		this.titleEl = this.shadowRoot.querySelector('.title');
 		
 		this.addEventListener('click', () => {
-			console.log('1. Клик по чату');
-			console.log('this.value:', this.value);
 			this.emit('chat-select', {
 				chat: this.value
 			});
@@ -47,9 +45,8 @@ export default class MessengerChatsItem extends Base {
 		const {
 			title
 		} = value;
-		this.titleEl.innerText = title;
+		this.titleEl.innerText  = title;
 		this[chatSymbol] = value;
-		console.log('MessengerChatsItem -> set value');
 		console.log(this.value);
 	}
 	

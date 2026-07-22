@@ -51,7 +51,23 @@ export default class MessengerChatInputs extends Base {
 		this.inputEl = this.shadowRoot.querySelector('.input');
 		this.sendBtnEl = this.shadowRoot.querySelector('.send_btn');
 		
+		this.sendBtnEl.addEventListener('click', () => {
+			this.sendMessage();
+		});
 		
-		
+		this.inputEl.addEventListener('keydown', e => {
+			if (e.key === 'Enter') {
+				this.sendMessage();
+			}
+		});
+	}
+	
+	sendMessage() {
+		const text = this.inputEl.value.trim();
+		if (!text) return;
+		this.emit('message-send', {
+			text
+		});
+		this.inputEl.value = '';
 	}
 }

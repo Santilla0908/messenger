@@ -116,22 +116,12 @@ export default class MessengerChats extends Base {
 			const itemEl = document.createElement('messenger-chats-item');
 			itemEl.value = chat;
 			this.items.push(itemEl);
-			console.log('Добавили компонент в массив');
-			console.log(this.items);
 			this.chatsEl.append(itemEl);
-			console.log('Создали Item:', chat.title);
 		});
 	}
 	
 	setActiveChat(activeChat) {
-		console.log('MessengerChats -> setActiveChat');
-		console.log(activeChat);
 		this.items.forEach(item => {
-			console.log('Нашли компонент:');
-			console.log(item);
-			console.log('Чат внутри компонента:');
-			console.log(item.value);
-			
 			item.classList.toggle('active', item.value === activeChat);
 		});
 	}

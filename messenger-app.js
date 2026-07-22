@@ -113,12 +113,13 @@ class MessengerApp extends Base {
 		});
 		
 		this.addEventListener('chat-select', e => {
-			console.log('2. MessengerApp поймал chat-select');
-			console.log('e.detail.chat:', e.detail.chat);
 			this.activeChat = e.detail.chat;
-			console.log('activeChat:', this.activeChat);
 			this.chatEl.activeChat = this.activeChat;
 			this.chatsEl.setActiveChat(this.activeChat);
+		});
+		
+		this.addEventListener('message-send', e => {
+			this.sendMessage(e.detail.text);
 		});
 	}
 	
@@ -126,6 +127,18 @@ class MessengerApp extends Base {
 		this.chats.push(chat);
 		localStorage.setItem('chats', JSON.stringify(this.chats));
 		this.chatsEl.renderChats(this.chats);
+	}
+	
+	sendMessage(text) {
+		if (!this.activeChat) return;
+		const message = {
+			id: crypto.randomUUID(),
+			text,
+			createdAt: Date.now()
+		}
+		this.activeChat.messages.push(message);
+		localStorage.setItem('chats', JSON.stringify(this.chats));
+		this.chatEl.activeChat = this.activeChat;
 	}
 }
 
